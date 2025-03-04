@@ -10,13 +10,9 @@ This is a small and lightweight utility library that brings together commonly us
 $ npm install lightkit
 ```
 
-# All Methods
+## Array
 
-All the methods provided so far are listed below.
-
-# Array
-
-## multiFilter
+### multiFilter
 
 Filters an array using multiple filter functions and returns the filtered results in separate arrays.
 
@@ -34,80 +30,9 @@ console.log(result)
 // [[2, 4, 6], [1, 3, 5]]
 ```
 
-## asyncMap
+## Date
 
-Returns a Promise that resolves with a new array containing the results of asynchronously applying the mapping function to each element.
-
-```ts
-import { asyncMap } from "lightkit"
-
-const array = [1, 2, 3, 4]
-const asyncFnc = (d: number): Promise<number> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(d * d)
-    }, 100)
-  })
-}
-
-const result = await asyncMap(array, async (n) => {
-  return await asyncFnc(n)
-})
-
-console.log(result)
-// [1, 4, 9, 16]
-```
-
-## groupBy
-
-Groups the elements of an array based on the specified key.  
-The elements must be objects, and the key must exist in the objects.
-
-```ts
-import { groupBy } from "lightkit"
-
-const array = [
-  { name: "Alice", age: 25 },
-  { name: "Bob", age: 30 },
-  { name: "Charlie", age: 25 }
-]
-const result = groupBy(array, "age")
-
-console.log(result)
-// {
-//   "25": [ { name: 'Alice', age: 25 }, { name: 'Charlie', age: 25 } ],
-//   "30": [ { name: 'Bob', age: 30 } ]
-// }
-```
-
-## groupAndSort
-
-Groups the elements of an array based on the specified key and sorts the resulting groups using a custom comparator.
-
-```ts
-import { groupAndSort } from "lightkit"
-
-const array = [
-  { name: "Alice", age: 25 },
-  { name: "Bob", age: 30 },
-  { name: "Charlie", age: 25 }
-]
-const result = groupAndSort(
-  array,
-  "age",
-  (a, b) => (a as number) - (b as number)
-)
-
-console.log(result)
-// [
-//   { age: 25, data: [ { name: 'Alice', age: 25 }, { name: 'Charlie', age: 25 } ] },
-//   { age: 30, data: [ { name: 'Bob', age: 30 } ] }
-// ]
-```
-
-# Date
-
-## Constructor
+### Constructor
 
 Initializes the class with a given date value or the current date if no value is provided.
 
@@ -128,7 +53,7 @@ const instance5 = new LDate(new Date())
 // Initializes with a Date object.
 ```
 
-## getDate
+### getDate
 
 Retrieves the current date.
 
@@ -143,7 +68,7 @@ console.log(new LDate(dateString).getDate() instanceof Date) // true
 console.log(dateTime === lDateTime) // true
 ```
 
-## getDateParts
+### getDateParts
 
 Extracts various date and time properties from the Date object.
 
@@ -173,7 +98,7 @@ console.log(dateProperties)
 // }
 ```
 
-## differenceIn
+### differenceIn
 
 Calculates the difference between the current date and the provided date in the specified unit.
 
@@ -187,7 +112,7 @@ const diffInYears = lDate.differenceIn(targetDate, "year")
 console.log(diffInYears) // 1
 
 const diffInMonths = lDate.differenceIn(targetDate, "month")
-console.log(diffInMonths) // 2
+console.log(diffInMonths) // 12
 
 const diffInDays = lDate.differenceIn(targetDate, "day")
 console.log(diffInDays) // 365

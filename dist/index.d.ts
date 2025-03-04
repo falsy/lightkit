@@ -81,48 +81,7 @@ declare class LDate implements ILightKitDate {
     private parse;
 }
 
-type MapFunction<T, U> = (item: T) => Promise<U>;
 type FilterFunction<T> = (item: T) => boolean;
-type GroupedData<T> = {
-    [key: string | number]: T[];
-};
-
-/**
- * 제공된 매핑 함수를 사용하여 요소 배열을 비동기적으로 매핑하고 Promise를 반환합니다.
- *
- * @template T - 입력 배열의 요소 유형입니다.
- * @template U - 결과 배열의 요소 유형입니다.
- * @param {T[]} arr - 매핑할 요소의 배열.
- * @param {MapFunction<T, U>} MapFunction - T 유형의 요소를 가져와 U 유형의 값이나 U로 확인되는 Promise를 반환하는 매핑 함수입니다.
- * @returns {Promise<U[]>} 매핑 함수를 비동기적으로 적용한 후 반환된 배열의 Promise입니다.
- */
-declare function asyncMap<T, U>(arr: T[], MapFunction: MapFunction<T, U>): Promise<U[]>;
-
-/**
- * 지정된 키를 기준으로 배열의 요소를 그룹화하고 사용자 정의한 정렬 함수를 사용하여 결과 그룹을 정렬합니다.
- *
- * @template T - 배열의 요소 유형은 객체로 제한됩니다.
- * @param {T[]} arr - 그룹화하고 정렬할 객체의 배열입니다.
- * @param {keyof T} key - 배열 요소가 그룹화되는 키입니다. 이 키는 배열의 각 객체에 존재해야 합니다.
- * @param {(a: T[keyof T], b: T[keyof T]) => number} comparator - 그룹을 어떻게 정렬해야 하는지 정의하는 비교 함수입니다.
- * @returns {Array<{ [K in keyof T]: T[K] } & { data: T[] }>} 지정된 키로 그룹화하고 정렬된 객체의 배열입니다.
- */
-declare function groupAndSort<T extends object>(arr: T[], key: keyof T, comparator: (a: T[keyof T], b: T[keyof T]) => number): Array<{
-    [K in keyof T]: T[K];
-} & {
-    data: T[];
-}>;
-
-/**
- * 지정된 키를 기준으로 배열의 요소를 그룹화합니다.
- * 요소는 객체여야 하며, 키는 객체에 존재해야 합니다.
- *
- * @template T - 배열의 요소 유형은 객체로 제한됩니다.
- * @param {T[]} arr - 그룹화할 객체의 배열입니다.
- * @param {string} key - 배열 요소가 그룹화되는 키입니다. 이 키는 배열의 각 객체에 존재해야 합니다.
- * @returns {GroupedData<T>} 지정된 키의 값으로 그룹화된 객체입니다.
- */
-declare function groupBy<T extends object>(arr: T[], key: string): GroupedData<T>;
 
 /**
  * 여러 개의 필터 함수를 사용하여 배열을 필터링하고 필터링된 결과를 별도의 배열로 반환합니다.
@@ -134,4 +93,4 @@ declare function groupBy<T extends object>(arr: T[], key: string): GroupedData<T
  */
 declare function multiFilter<T>(arr: T[], filters: FilterFunction<T>[]): T[][];
 
-export { type IDateParts, type ILightKitDate, LDate, asyncMap, groupAndSort, groupBy, multiFilter };
+export { type IDateParts, type ILightKitDate, LDate, multiFilter };
